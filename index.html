@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Study Quest</title>
+    <!-- How To Use an Emoji as a Favicon Easily:
+    https://css-tricks.com/emoji-as-a-favicon/ -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='83'>🦉</text></svg>">
+
+<!--
+  __  __            __       _                 
+ |  \/  |          / _|     ( )                
+ | \  / | ___ _ __| |_ _   _|/ ___             
+ | |\/| |/ _ \ '__|  _| | | | / __|            
+ | |  | |  __/ |  | | | |_| | \__ \            
+ |_|  |_|\___|_|  |_|  \__, | |___/            
+                        __/ |                  
+   ____                |___/     
+  / __ \                | |    
+ | |  | |_   _  ___  ___| |_ 
+ | |  | | | | |/ _ \/ __| __|
+ | |__| | |_| |  __/\__ \ |_
+  \___\_\\__,_|\___||___/\__|
+  / ____|                                      
+ | |  __  __ _ _ __ ___   ___                  
+ | | |_ |/ _` | '_ ` _ \ / _ \                 
+ | |__| | (_| | | | | | |  __/                 
+  \_____|\__,_|_| |_| |_|\___|                 
+                                               
+-->
+
+<!-- Ascii art by https://patorjk.com/software/taag/ -->
+
+<style>
+
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+
+html {
+        margin: 0;
+    }
+
+body {
+    margin: 0;
+    font-size: 63%;
+/*    text-align: center;*/
+    font-family: Verdana, sans-serif;
+    background-color: SeaShell;
+    color: SaddleBrown;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: FireBrick;
+  height: 2%;
+}
+
+.topnav a {
+  float: left;
+  color: Cornsilk;
+  text-align: center;
+  padding: 1.25%;
+  text-decoration: none;
+  font-size: 98%;
+}
+
+.topnav a:hover {
+  background-color: PeachPuff;
+  color: SaddleBrown;
+}
+
+.topnav a.active {
+  background-color: SandyBrown;
+  color: OldLace;
+
+}
+
+
+.main-content {
+    text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+p {
+    margin: 1%;
+    padding: 18px;
+    line-height: 118%;
+    border: 1px solid Wheat;
+}
+
+
+
+/*The question box*/
+.question {
+    height: 14vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    padding-top: 1.5vh;
+/*    font-weight: bolder;*/
+    border-radius: 12px;
+
+/*    display:flex;
+    justify-content: center;
+    align-items:center;*/
+}
+
+/*The upper two answer boxes, A and B*/
+.answers-upper {
+    display: inline-block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+       -ms-flex-align: center;
+          align-items: center;
+}
+
+/*The lower two answer boxes, C and D*/
+.answers-lower {
+    display: inline-block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+       -ms-flex-align: center;
+          align-items: center;
+}
+
+/*All the answer boxes*/
+.answer {
+    width: 50%;
+    height: 12vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    padding-top: 1.5vh;
+    border-radius: 12px;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    /*break a word only if the text cannot be wrapped*/
+    /*https://developer.mozilla.org/en-US/docs/Web/CSS/word-break*/
+
+/*    display:flex; 
+    align-content: center;
+    justify-content: center;*/
+}
+
+/*Make the letters A, B, C, D in the beggining of each answer bolder*/
+.answer::first-letter {
+    color: FireBrick;
+    font-weight: bolder;
+
+}
+
+/*All the classes containing the word 'level', refer to the level indicators 
+at the top of the page */
+.level-indicator {
+    text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 0.5vh;
+}
+
+.level {
+    background-color: PapayaWhip;
+    border-radius: 4px;
+    font-size: 80%;
+    padding: 1px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border: 1px solid Firebrick;
+}
+
+.current-level {
+    color: Maroon;;
+    background-color: LightSalmon;
+}
+
+.reward-level {
+    background-color: PaleGreen;
+}
+
+.reward-level-reached {
+    color: Cornsilk;
+    background-color: LimeGreen;
+}
+
+.maximum-level {
+    background-color: Turquoise;
+}
+
+.maximum-level-reached {
+    color: Cornsilk;
+    background-color: MediumAquaMarine;
+}
+
+/*The classes containing the word 'next', refer to the button for 
+the next question at the bottom of the page*/
+.next-button {
+    text-align: center;
+    margin-top: 0.8vh;
+    margin-bottom: 0.8vh;
+}
+
+.next-question {
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: bolder;
+    margin-top: 0.68em;
+    margin-bottom: 0.68em;
+    background-color: Wheat;
+}
+
+.next-question:hover {
+    background-color: SandyBrown;
+}
+
+/*The link, at the top of the page, for the extralearning.github.io page*/
+.main-page-link {
+    margin-top: 0.5vh;
+    margin-bottom: 1vh;
+    list-style-type: none;
+}
+
+.main-page-link a {
+    font-size: 80%;
+    font-style: italic;
+    color: Chocolate;
+}
+
+/*Informational text, just below the level indicators*/
+.info-text {
+/*    height: 3vh;*/
+    border: none;
+    font-size: 93%;
+    font-style: italic;    
+    margin-top: 0.25vh;
+    margin-bottom: 0.25vh;
+}
+
+/*When the answer is correct, the background color changes to green*/
+.correct-color {
+    -webkit-animation: green 3s 1;
+            animation: green 3s 1;
+    background-color: mediumspringgreen;
+}
+
+@-webkit-keyframes green
+{
+    0%      {background:yellow;}
+    40%     {background:yellow;}
+    60%     {background:mediumspringgreen;}
+    100%    {background:mediumspringgreen;}
+}
+
+@keyframes green
+{
+    0%      {background:yellow;}
+    40%     {background:yellow;}
+    60%     {background:mediumspringgreen;}
+    100%    {background:mediumspringgreen;}
+}
+
+/*When the answer is wrong, the background color changes to red*/
+.wrong-color {
+    -webkit-animation: red 3s 1;
+            animation: red 3s 1;
+    background-color: Tomato;
+}
+
+@-webkit-keyframes red
+{
+    0%      {background:Yellow;}
+    40%     {background:Yellow;}
+    60%     {background:Tomato;}
+    100%    {background:Tomato;}
+}
+
+@keyframes red
+{
+    0%      {background:Yellow;}
+    40%     {background:Yellow;}
+    60%     {background:Tomato;}
+    100%    {background:Tomato;}
+}
+
+/*When a wrong answer has been slelected, this class displays the correct one*/
+.show-correct-answer {
+    -webkit-animation: yellowgreen 3s 1;
+            animation: yellowgreen 3s 1;
+    background-color: mediumspringgreen;
+}
+
+@-webkit-keyframes yellowgreen
+{
+    0%      {background:transparent;}
+    40%     {background:transparent;}
+    60%     {background:mediumspringgreen;}
+    100%    {background:mediumspringgreen;}
+}
+
+@keyframes yellowgreen
+{
+    0%      {background:transparent;}
+    40%     {background:transparent;}
+    60%     {background:mediumspringgreen;}
+    100%    {background:mediumspringgreen;}
+}
+
+/*A yellow hover effect before selecting an answer*/
+.animate-yellow:hover {
+    background-color: yellow;
+}
+
+/*At the end of the game, when the results appear*/
+.results {
+/*    font-weight: bolder;*/
+    background-color: OldLace;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-top: 0.8vh;
+    margin-bottom:  0.8vh;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "\266B";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
+}
+
+/* Change the background color of the slider when clicked */
+input:checked + .slider {
+    background-color: sandybrown;
+}
+
+/*Place a shadow around the slider when in focus*/
+input:focus + .slider {
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.68);
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.68);
+}
+
+/*Move the innner slider when clicked*/
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+            transform: translateX(26px);
+}
+
+/*Round shape of the outer slider*/
+.slider.round {
+    border-radius: 34px;
+}
+
+/*Round shape of the inner slider*/
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/*The reload icon*/
+.reload-icon {
+    display: inline-block;
+    font-size: 118%;
+    margin-top: 0.8vh;
+    margin-bottom: 0.8vh;
+}
+
+/*The reload icon hover effect*/
+.reload-icon:hover {
+    font-weight: bolder;
+    cursor:pointer
+}
+
+@media screen and (min-width: 280px) {
+
+    .info-text {
+        height: 2vh;
+        margin-bottom: 2vh;
+    }
+
+    .main-content {
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+
+}
+
+
+@media screen and (min-width: 360px) {
+
+    .info-text {
+        height: 1vh;
+        margin-bottom: 1vh;
+    }
+
+    .main-content {
+        font-size: 118%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+}
+
+
+@media screen and (min-width: 640px) {
+
+    .main-content {
+        font-size: 121%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+}
+
+
+@media screen and (min-width: 820px) {
+
+    .main-content {
+        font-size: 123%;
+        margin-left: 8%;
+        margin-right: 8%;
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+
+    .main-content {
+        font-size: 126%;
+        margin-left: 12%;
+        margin-right: 12%;
+    }
+
+}
+
+
+@media screen and (min-width: 1280px) {
+
+    .main-content {
+        font-size: 128;
+        margin-left: 12%;
+        margin-right: 12%;
+    }
+
+}
+
+.player-indicator {
+    background-color: #ddd;
+    border-radius: 18px;
+    border: 1px solid #ccc;
+    margin: 2px;
+    margin-bottom: 0.5%;
+}
+
+.current-player {
+    background-color: sandybrown;
+    border: 1px solid tomato;
+}
+
+.left-button {
+    float: right;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a  class="active" href="" onclick="reloadGame()" title="Ακύρωση και έναρξη από την αρχή">Επαναφόρτωση</a>
+</div>
+
+<main class="main-content">
+
+<section class="game-indicators" title="Μέρος 1ο, 2ο, 3ο">
+
+    <button type="button" class="player-indicator"></button>
+    <button type="button" class="player-indicator"></button>
+    <button type="button" class="player-indicator"></button>
+
+</section>
+
+<!-- These buttons are not used as buttons but merely for
+displaying the current, as well as, the maximum level of the game. -->
+<section class="level-indicator" title="Αύξων αριθμός ερώτησης">
+
+    <button type="button" class="level">1η</button>
+    <button type="button" class="level">2η</button>
+    <button type="button" class="level">3η</button>
+    <button type="button" class="level">4η</button>
+    <button type="button" class="level">5η</button>
+    <button type="button" class="level">6η</button>
+    <button type="button" class="level">7η</button>
+    <button type="button" class="level">8η</button>
+    <button type="button" class="level">9η</button>
+    <button type="button" class="level">10η</button>
+    <button type="button" class="level">11η</button>
+    <button type="button" class="level">12η</button>
+
+</section>
+
+<p class="info-text">Ποιος θέλει να μάθει ακόμη περισσότερα;</p>
+
+<p class="question">Ερωτήσεις Μαθηματικών, Φυσικής, Χημείας και Οικονομίας <em>(Γ'&nbsp;Λυκείου)</em></p>
+
+
+<section class="answers-upper">
+
+    <p class="answer answer-a animate-yellow" onclick="checkAnswerA()">Α. Ερωτήσεις <br> Μαθηματικών και Πληροφορικής</p>
+    <p class="answer answer-b animate-yellow" onclick="checkAnswerB()">Β. Ερωτήσεις <br> Φυσικής και Χημείας</p>
+
+</section>
+
+
+<section  class="answers-lower">
+
+    <p class="answer answer-c animate-yellow" onclick="checkAnswerC()">Γ. Ερωτήσεις <br> Βιολογίας</p>
+    <p class="answer answer-d animate-yellow" onclick="checkAnswerD()">Δ. Ερωτήσεις <br> Οικονομίας</p>
+
+</section>
+
+
+<!-- The button for displaying the next question -->
+<section class="next-button">     
+
+    <button type="button" onclick="nextQuiz()" class="next-question">Επιβεβαίωση επιλογής</button>
+
+</section>
+
+
+<!-- Switch button for turning on / off the sound effects during the game -->
+<label class="switch" title="Επιλογή ηχητικών εφέ">
+
+  <input type="checkbox" class="sound-button" value="Off" onclick="soundEffectsOption();">
+  <span class="slider round"></span>
+  
+</label>
+
+
+</main>
+
+<section class="load-games">
+
+    <script src="study-quest\l3Inform01.js"></script>
+    <script src="study-quest\l3Math01.js"></script>
+    <script src="study-quest\l3Inform02.js"></script>
+    <script src="study-quest\l3Phys01.js"></script>
+    <script src="study-quest\l3Chem01.js"></script>
+    <script src="study-quest\l3Phys02.js"></script>
+    <script src="study-quest\l3Biol01.js"></script>
+    <script src="study-quest\l3Biol02.js"></script>
+    <script src="study-quest\l3Econ01.js"></script>
+    <script src="study-quest\l3Econ02.js"></script>
+  
+</section>
+
+<script>
+
+// The 'games' array, holds the questions for the game. In terms of speaking,
+// the term game refers to the overall game played but in terms of code,
+// the term game refers to the game of each individual player. i.e. a player
+// attempted 5 questions and the next player attempted 8 questions. In this
+// case we have 2 games, the first with 5 questions and the second with 8
+// questions, and in the array those 2 games are stored as 2 elements.
+// The array is initialized inside the functions 'checkAnswerA()' up to
+// 'checkAnswerB()'
+let games = [];
+
+const setA = [l3Inform01, l3Math01, l3Inform02];
+const setB = [l3Phys01, l3Chem01, l3Phys02];
+const setC = [l3Biol01, l3Biol02];
+const setD = [l3Econ01, l3Econ02];
+
+// The 'gameIndex' variable refers to the game played at any particular 
+// time and corresponds to the elements of the 'games' array.
+// The 'quizIndex' variable refers to the question displayed from that
+// particular game.
+let gameIndex = 0;
+let quizIndex = 0;
+
+// This variable takes the value of 0 at the start of each question and 
+// checks whether a question has already been answered or not. As soon as
+// an answer has been selected, the value changes to 1 and then, 
+// no other answer can be selected. 
+// The initial value though is set to 1, as there is no question
+// to be answered at the begining of the game.
+let checkAnswerCount = 1;
+
+// This variable checks whether the button for the music has been turned 
+// on or off and accordingly, plays or mutes the music effects.
+let soundEffects = false;
+
+// These variables are used to keep some statistics about the game,
+// which are displayed at the end of the game.
+let totalQuestionsCount = 0;
+let correctQuestionsCount = 0;
+let wrongQuestionsCount = 0;
+
+// As a simple cheat, whenever this game is played on a computer, you can
+// change the value of this variable, to any value other than 0, and the
+// answers to each question will be displayed in the console.
+let pass = 0;
+
+function nextQuiz() {
+   // The actions whenever the nex-button is pressed.
+
+   // If no array has been selected in the intro screen,
+   // then as soon as the start button is pressed,
+   // auto-select this array, which contains all the
+   // games appearing in the intro screen and also,
+   // the games in this array are shuffled.
+    if (games.length === 0) {
+        return
+    } else if (totalQuestionsCount === 0) {
+        createGameIndicators();
+    }
+
+   // For every new question, the checkAnswerCount variable
+   // is set to 0 and as soon as an answer is selected, the value
+   // changes to 1, ensuring that no other answer can be selected. 
+   checkAnswerCount = 0;
+   
+   // If there are still available questions, then display the next one.
+   if (gameIndex < games.length) {
+      calculateIndex();
+
+   // Otherwise, if there are no other questions, then display the 
+   // end screen and set the variable 'checkAnswerCount' to 1, so
+   // it will not be possible to select an answer in the end screen.
+   } else if (gameIndex >= games.length){
+      checkAnswerCount = 1;
+      endOfGame();
+      
+   }
+   
+}
+
+
+function calculateIndex() {
+   // Calculates the game index, refering to the game
+   // being played at any particular time and also,
+   // the quiz index refering to the individual questions
+   // in each game.
+
+   quizIndex++;
+
+   // Whenever we reach the last question of a game,
+   // advance to the next game and point to the first
+   // question of that game i.e quizIndex = 1
+   // as all the questions start from the index 1
+   if (quizIndex >= games[gameIndex].length) {
+         quizIndex = 1;
+         gameIndex++;
+   }
+
+   // Whenever a new player starts, the start sound is played.
+   if (quizIndex === 1 && gameIndex < games.length) {
+      playStartSound();
+   }
+
+   // If there are still games to be played, then
+   // display the next question, add the proper classes
+   // and display the corresponding level,
+   // otherwise if there is no other to be played,
+   // display the end screen and play the exit music.
+   if (gameIndex < games.length) {
+      displayQuestion(gameIndex, quizIndex);
+      addClasses();
+      displayIndex();
+      updateGameIndicators()
+
+   } else {
+      endOfGame();
+      playExitSound();
+   }  
+
+}
+
+
+function displayQuestion(gameIndex, quizIndex) {
+   // Displays the question and the possible answers
+   // and also, an informational text with the name of the
+   // player, the part and the reward.
+   totalQuestionsCount++;
+
+   let quizQuest = document.querySelector('.question');
+   let answerA = document.querySelector('.answer-a');
+   let answerB = document.querySelector('.answer-b');
+   let answerC = document.querySelector('.answer-c');
+   let answerD = document.querySelector('.answer-d');
+
+   quizQuest.innerText = games[gameIndex][quizIndex].question;
+   answerA.innerText = games[gameIndex][quizIndex].answers[0];
+   answerB.innerText = games[gameIndex][quizIndex].answers[1];
+   answerC.innerText = games[gameIndex][quizIndex].answers[2];
+   answerD.innerText = games[gameIndex][quizIndex].answers[3];
+
+   let didplayDetails = document.querySelector('.info-text');
+   let infoText = games[gameIndex][0].course +  
+   " (μέρος " + games[gameIndex][0].part + "ο)";
+   didplayDetails.innerText = infoText;
+
+   let buttonText = document.querySelector('.next-question');
+   buttonText.innerText = "Επόμενη Ερώτηση";
+}
+
+
+function addClasses() {
+   // We select all the answer boxes
+   let answerList = document.querySelectorAll('.answer');
+
+   // We remove all the classes that are not needed
+   for (let i=0; i<answerList.length; i++) {
+      answerList[i].classList.remove('correct');
+      answerList[i].classList.remove('correct-color');
+      answerList[i].classList.remove('wrong-color');
+      answerList[i].classList.remove('show-correct-answer');
+   }
+
+   for (let i=0; i<answerList.length; i++) {
+
+      // We add the 'correct' class to the answer which is the correct one
+      // and later, we will check if the correct answer has been selected
+      // based on the classes contained in each answer.
+      if (answerList[i].innerText === games[gameIndex][quizIndex].correct) {
+         answerList[i].classList.add('correct', 'animate-yellow');
+         
+         // Cheat mode:
+         // By opening the console and typing a value, other than 0, for
+         // the variable "pass", the correct answer, for each
+         // question, will appear in the console.
+         if (pass) {
+            console.log(games[gameIndex][quizIndex].correct);
+         }
+      } else {
+         answerList[i].classList.add('animate-yellow');
+      }
+   }
+   
+}
+
+
+function displayIndex() {
+   // Displays the current level of the game,
+   // the maximum level of the original game,
+   // and with different color, the current level
+   // when it reaches the maximum level.
+
+   // We set all indicators to their default style.
+   let levelIndicators = document.querySelectorAll('.level');
+   for (let i=0; i<levelIndicators.length; i++) {
+      levelIndicators[i].className = "level";
+   }
+
+   // We highlight the current level
+   levelIndicators[quizIndex-1].className = "level current-level";
+
+}
+
+
+function checkAnswerA() {
+   // If the answer box A is pressed in the intro screen,
+   // then the corresponding array, containing the questions,
+   // is selected, and also, the background color becomes green.
+   // When the game starts, games.length is 0, as the games
+   // array is empty, but as soon as an option is selected,
+   // then the array is not empty anymore and thus, 
+   // it's not possible to select a second option.
+   if (games.length === 0) {
+      addCorrectColor('.answer-a');
+      games = setA;
+      return;
+   }
+
+   // If the answer box A is pressed during the game,
+   // then it checks whether it contains the class "correct".
+   // In such a case, the sound for the correct answer is played
+   // and the background color of the answer becomes green.
+   // Otherwise, if the answer box A does not contain the
+   // class "correct", then the sound for the wrong answer is
+   // played, the background color becomes red, and the 
+   // function to display the correct answer is called.
+   // Whenever a new question is displayed, the variable
+   // checkAnswerCount is set to 0 but as soon as an answer
+   // is selected, its value changes to 1, which ensures
+   // that a second answer cannot be selected.
+   if (checkAnswerCount === 0) {
+
+      answer = document.querySelector('.answer-a');
+      if (answer.classList.contains('correct')) {
+         playCorrectSound();
+         addCorrectColor('.answer-a');
+      } else {
+         playWrongSound();
+         addWrongColor('.answer-a');
+         displayCorrectAnswer();
+      }
+   }
+
+   checkAnswerCount++;
+}
+
+
+function checkAnswerB() {
+   // The same logic as the function "checkAnswerA()"
+   if (games.length === 0) {
+      addCorrectColor('.answer-b');
+      games = setB;
+      return;
+   }
+
+   if (checkAnswerCount === 0) {
+
+      answer = document.querySelector('.answer-b');
+      if (answer.classList.contains('correct')) {
+         playCorrectSound();
+         addCorrectColor('.answer-b');
+      } else {
+         playWrongSound();
+         addWrongColor('.answer-b');
+         displayCorrectAnswer();
+      }
+
+   }
+
+   checkAnswerCount++;
+
+}
+
+
+function checkAnswerC() {
+   // The same logic as the function "checkAnswerA()"
+   if (games.length === 0) {
+      addCorrectColor('.answer-c');
+      games = setC;
+      return;
+   }
+
+   if (checkAnswerCount === 0) {
+
+      answer = document.querySelector('.answer-c');
+      if (answer.classList.contains('correct')) {
+         playCorrectSound();
+         addCorrectColor('.answer-c');
+      } else {
+         playWrongSound();
+         addWrongColor('.answer-c');
+         displayCorrectAnswer();
+      }
+   }
+
+   checkAnswerCount++;
+}
+
+
+function checkAnswerD() {
+   // The same logic as the function "checkAnswerA()"
+   if (games.length === 0) {
+      addCorrectColor('.answer-d');
+      games = setD;
+      return;
+   }
+
+   if (checkAnswerCount === 0) {
+
+      answer = document.querySelector('.answer-d');
+      if (answer.classList.contains('correct')) {
+         playCorrectSound();
+         addCorrectColor('.answer-d');
+      } else {
+         playWrongSound();
+         addWrongColor('.answer-d');
+         displayCorrectAnswer();
+      }
+   }
+
+   checkAnswerCount++;
+}
+
+
+function randomizeArray(randArray) {
+   // Takes an array and shuffles the items in the array.
+   // The algorith takes out the first element from the array
+   // and then places it back in a random position inside the array
+   // and repeats the process for every item of the array.
+   // The result is just an array with shuffled items and not
+   // a statistically randomized array. 
+   let firstElement = 0;
+   for (let i = 0; i < randArray.length; i++) {
+      firstElement = randArray[0];
+      randArray.splice(0,1);
+      randArray.splice(randomNum(randArray.length), 0, firstElement);
+   };
+   return randArray;
+}
+
+
+function randomNum(max) {
+   // Returns a random number between 0 (inclusive) and max (inclusive).
+   let randNum = Math.floor(Math.random()*(max+1));
+   return randNum;
+}
+
+
+function displayCorrectAnswer() {
+   // If a wrong answer has been selected, this function loops the ansewers to
+   // find the correct answer, i.e. the one that contains the class 'correct'
+   // and then, it adds a green background color to that answer.
+  let allAnswers = document.querySelectorAll('.answer');
+
+  for (let i=0; i<allAnswers.length; i++) {
+
+      if (allAnswers[i].classList.contains('correct')) {
+         allAnswers[i].classList.add('show-correct-answer');
+         removeYellowColor();
+      }
+   }
+}
+
+
+function removeYellowColor() {
+   // When the mouse hovers above an answer, the answer is highlighted
+   // with a yellow color but as soon as an answer is selected,
+   // this option is removed.
+    let allAnswers = document.querySelectorAll('.answer');
+
+    for (let i=0; i<allAnswers.length; i++) {
+
+         allAnswers[i].classList.remove('animate-yellow');
+   }
+}
+
+
+function addCorrectColor(answer) {
+   // Removes the yellow hover effect and adds
+   // a green background to the selected box
+   // that corresponds to the correct answer.
+   removeYellowColor();
+   selectedAnswer = document.querySelector(answer);
+   selectedAnswer.classList.add('correct-color');
+}
+
+
+function addWrongColor(answer) {
+   // Removes the yellow hover effect and adds
+   // a red background to the selected box
+   // that corresponds to the wrong answer.
+   removeYellowColor();
+   selectedAnswer = document.querySelector(answer);
+   selectedAnswer.classList.add('wrong-color');
+}
+
+
+function soundEffectsOption() {
+   // The function for the On-Off button of the music effects.
+   // Initially, its value is set to off and thus, when
+   // clicked once, its value changes to on and the soundEffects
+   // boolean variable becomes true, enabling the sound effects.
+   // Similarly, when the button is clicked again,
+   // its value becomes off and the soundEffects becomes false.
+   let toggleButton = document.querySelector(".sound-button");
+
+   if (toggleButton.value === "On") {
+      soundEffects = false;
+      toggleButton.value = "Off";
+
+    } else if (toggleButton.value === "Off") {
+      soundEffects = true;
+      toggleButton.value = "On";
+    }
+}
+
+
+function playStartSound() {
+   // Provided that the soundEffects boolean variable is true,
+   // a sound plays whenever a new game starts
+   if (soundEffects) {
+      new Audio('sounds/lets_play.mp3').play();
+   }
+}
+
+
+function playCorrectSound() {
+   // Provided that the soundEffects boolean variable is true,
+   // a sound plays if the answer is correct and also,
+   // the correct questions counter increases by 1.
+   correctQuestionsCount++;
+
+   if (soundEffects) {
+      setTimeout(() => {
+         new Audio('sounds/correct_answer.mp3').play();
+      }, 1000)
+   }
+}
+
+
+function playWrongSound() {
+   // Provided that the soundEffects boolean variable is true,
+   // a sound plays if the answer is wrong and also,
+   // the wrong questions counter increases by 1.
+   wrongQuestionsCount++;
+
+   if (soundEffects) {
+      setTimeout(() => {
+         new Audio('sounds/wrong_answer.mp3').play();
+      }, 1000)
+   }
+}
+
+
+function playExitSound() {
+   // Provided that the soundEffects boolean variable is true,
+   // a sound plays at the end of the game
+   if (soundEffects) {
+      new Audio('sounds/easy.mp3').play();
+   }
+}
+
+function createGameIndicators() {
+    // Displays at the top of the page, the game that is currently being played
+    // i.e. Each game, corresponds to a different player that took part in the 
+    // original television game.
+
+    const selectedItems = document.querySelectorAll('.player-indicator');
+    for (let i = 0; i < selectedItems.length; i++) {
+        selectedItems[i].remove();
+    }
+
+    const tempFragment = document.createDocumentFragment();
+    for (i=0; i < games.length; i++) {
+        const playerIndicator = document.createElement('button');
+        playerIndicator.type = "button";
+        playerIndicator.className = "player-indicator";
+        tempFragment.appendChild(playerIndicator);
+    }
+
+    const selectedElement = document.querySelector('.game-indicators');
+    selectedElement.appendChild(tempFragment);
+
+}
+
+
+function updateGameIndicators() {
+    
+    const selectedItems = document.querySelectorAll('.player-indicator');
+    for (let i = 0; i < selectedItems.length; i++) {
+        selectedItems[i].className = "player-indicator";
+    }
+
+    selectedItems[gameIndex].className = "player-indicator current-player";
+
+}
+
+function reloadGame() {
+   // Upon pressing the reload icon,
+   // the page reloads.
+   location.reload();
+}
+
+
+function endOfGame() {
+   // We incerase the checkAnswerCount to avoid clicking on the answer boxes
+   // while the results of the game appears in the boxes.
+   // And we also remove the hover effect whenever we place the mouse above
+   // the answer boxes.
+   checkAnswerCount++;
+   removeYellowColor();
+
+   // We calculate the % grade for the game but in the denominator we add the
+   // number 0.001 to avoid possible division by zero
+   let percentageGrade = (correctQuestionsCount / (totalQuestionsCount + 0.001)) * 100;
+   let roundedGrade = Number(percentageGrade.toFixed(1));
+
+   // We select the question box and we display the text
+   // "Who wants to be a millionaire?"
+   let quizQuest = document.querySelector('.question');
+   quizQuest.innerText = "Παρουσίαση αποτελεσμάτων";
+   quizQuest.style.backgroundColor = "OldLace";
+
+   // We select the answer boxes and we display statistics about the game
+   let answerA = document.querySelector('.answer-a');
+   let answerB = document.querySelector('.answer-b');
+   let answerC = document.querySelector('.answer-c');
+   let answerD = document.querySelector('.answer-d');
+   answerA.innerText = "Α. Τελική βαθμολογία: " + roundedGrade + "%";
+   answerB.innerText = "Β. Συνολικές ερωτήσεις: " + totalQuestionsCount;
+   answerC.innerText = "Γ. Σωστές απαντήσεις: " + correctQuestionsCount; 
+   answerD.innerText = "Δ. Λάθος απαντήσεις: " + wrongQuestionsCount;
+
+   // We remove all the classes from the answer boxes, otherwise, the boxes
+   // could be clicked and we add the class "results"
+   let answerList = document.querySelectorAll('.answer');
+   for (let i=0; i<answerList.length; i++) {
+      answerList[i].classList.remove('correct');
+      answerList[i].classList.remove('correct-color');
+      answerList[i].classList.remove('wrong-color');
+      answerList[i].classList.remove('show-correct-answer');
+      answerList[i].classList.add('results');
+   }
+
+   // We also change the upper test to "Game results"
+   let didplayDetails = document.querySelector('.info-text');
+   didplayDetails.innerText = "Ποιος θέλει να μάθει ακόμη περισσότερα;";
+
+   // We remove all the colors from the level indicators
+   let levelIndicators = document.querySelectorAll('.level');
+   for (let i=0; i<levelIndicators.length; i++) {
+      levelIndicators[i].className = "level";
+   }
+
+    const selectedItems = document.querySelectorAll('.player-indicator');
+    for (let i = 0; i < selectedItems.length; i++) {
+        selectedItems[i].className = "player-indicator";
+    }
+
+   // We change the styling of the "next-question" button and we add
+   // the text "End of game"
+   let buttonText = document.querySelector('.next-question');
+   buttonText.innerText = "Τέλος ερωτήσεων";
+   buttonText.style.backgroundColor = "Wheat";
+}
+
+</script>
+
+</body>
+</html>
